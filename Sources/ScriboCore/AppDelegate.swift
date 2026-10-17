@@ -1,13 +1,15 @@
 import AppKit
 import Carbon.HIToolbox
 
-final class AppDelegate: NSObject, NSApplicationDelegate {
+public final class AppDelegate: NSObject, NSApplicationDelegate {
     private let settings = AppSettings()
     private let hotKeys = HotKeyManager()
     private var overlay: OverlayController!
     private var statusBar: StatusBarController!
 
-    func applicationDidFinishLaunching(_ notification: Notification) {
+    public override init() { super.init() }
+
+    public func applicationDidFinishLaunching(_ notification: Notification) {
         Preferences.shared.load(into: settings)
         overlay = OverlayController(settings: settings)
         statusBar = StatusBarController(settings: settings, overlay: overlay)

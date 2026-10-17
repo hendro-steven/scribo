@@ -16,13 +16,16 @@ concurrency:
 
 jobs:
   build:
-    runs-on: macos-14
+    runs-on: macos-15
     steps:
       - name: Checkout
         uses: actions/checkout@v7
 
       - name: Toolchain
         run: swift --version
+
+      - name: Run tests
+        run: swift test
 
       - name: Build & assemble app bundle
         run: ./make-app.sh
