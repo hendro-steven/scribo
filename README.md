@@ -4,6 +4,8 @@ On-screen annotation overlay for macOS (native AppKit, Apple Silicon & Intel).
 A spiritual port of Linux's [gromit-mpx](https://github.com/bk138/gromit-mpx):
 draw on top of anything — presentations, demos, screen recordings, teaching.
 
+![Scribo running on macOS — menu-bar menu open over a web page](docs/screenshot.png)
+
 ## Features
 
 - **Transparent full-screen overlay** on every display, floating above the Dock
