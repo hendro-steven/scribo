@@ -114,10 +114,13 @@ final class StatusBarController: NSObject {
     @objc private func about() {
         NSApp.activate(ignoringOtherApps: true)
 
+        let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
+        let versionLine = version.map { "Version \($0)\n\n" } ?? ""
+
         let alert = NSAlert()
         alert.messageText = "Scribo"
         alert.informativeText = """
-        On-screen annotation overlay for macOS.
+        \(versionLine)On-screen annotation overlay for macOS.
 
         F9 — toggle draw mode
         F10 — clear

@@ -25,6 +25,8 @@ jobs:
         run: swift --version
 
       - name: Build universal .app and zip
+        env:
+          SCRIBO_VERSION: ${{ github.ref_name }}   # the tag, e.g. v1.0.2
         run: ./make-app.sh --universal --zip
 
       - name: Verify architectures
