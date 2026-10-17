@@ -24,5 +24,8 @@ jobs:
       - name: Toolchain
         run: swift --version
 
+      - name: Run tests
+        run: swift test
+
       - name: Build & assemble app bundle
         run: ./make-app.sh

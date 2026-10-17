@@ -54,7 +54,7 @@ Grab the latest **Scribo.zip** from the
 
 ## Build from source
 
-Requires Xcode command-line tools (Swift 5.9+).
+Requires Xcode command-line tools (Swift 6.0+; code is in Swift 5 language mode).
 
 ```bash
 # Quick run (plain executable — menu-bar icon appears, but no bundle):
@@ -119,19 +119,34 @@ color, default pen width, and the quick-pick palette (hex colors).
 
 ## Architecture
 
+The app logic lives in a library target (`ScriboCore`) so it can be unit-tested;
+a thin executable target (`Scribo`) is just the entry point.
+
 | File | Responsibility |
 |------|----------------|
-| `main.swift` | Entry point; `.accessory` activation policy |
-| `AppDelegate.swift` | Wires settings, overlay, status bar, hot keys |
-| `AppSettings.swift` | Shared mutable drawing state |
-| `Tool.swift` | Tool definitions |
-| `Stroke.swift` | One mark + its `NSBezierPath` builder |
-| `CanvasView.swift` | Transparent per-display drawing surface |
-| `OverlayWindow.swift` | Borderless non-activating floating panel |
-| `OverlayController.swift` | One window/canvas per screen; command fan-out |
-| `HotKeyManager.swift` | Carbon global hot keys |
-| `StatusBarController.swift` | Menu-bar icon + menu |
-| `Preferences.swift` | JSON config load/save |
+| `Sources/Scribo/main.swift` | Entry point; `.accessory` activation policy |
+| `ScriboCore/AppDelegate.swift` | Wires settings, overlay, status bar, hot keys |
+| `ScriboCore/AppSettings.swift` | Shared mutable drawing state |
+| `ScriboCore/Tool.swift` | Tool definitions |
+| `ScriboCore/Stroke.swift` | One mark + its `NSBezierPath` builder |
+| `ScriboCore/CanvasView.swift` | Transparent per-display drawing surface |
+| `ScriboCore/OverlayWindow.swift` | Borderless non-activating floating panel |
+| `ScriboCore/OverlayController.swift` | One window/canvas per screen; command fan-out |
+| `ScriboCore/HotKeyManager.swift` | Carbon global hot keys |
+| `ScriboCore/StatusBarController.swift` | Menu-bar icon + menu |
+| `ScriboCore/Preferences.swift` | JSON config load/save |
+
+## Tests
+
+Unit tests cover the pure-logic layer (tool classification, stroke geometry,
+hex-colour parsing, config round-tripping, default settings):
+
+```bash
+swift test
+```
+
+The UI/overlay/hot-key layers aren't unit-tested (they need a running app and a
+screen); CI runs `swift test` on every PR.
 
 ## Roadmap ideas
 

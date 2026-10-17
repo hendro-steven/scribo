@@ -1,4 +1,5 @@
 import AppKit
+import ScriboCore
 
 // Scribo — on-screen annotation overlay for macOS (Apple Silicon).
 // A spiritual port of gromit-mpx to native AppKit.
