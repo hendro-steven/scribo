@@ -22,6 +22,19 @@ for arg in "$@"; do
 done
 
 APP_NAME="Scribo"
+
+# Determine the version to stamp into the bundle (leading "v" stripped):
+#   1. explicit SCRIBO_VERSION env (the release workflow sets it from the tag)
+#   2. the most recent git tag reachable from HEAD
+#   3. empty -> keep whatever Info.plist already declares
+if [ -n "${SCRIBO_VERSION:-}" ]; then
+  VERSION="${SCRIBO_VERSION#v}"
+elif VERSION_TAG="$(git describe --tags --abbrev=0 2>/dev/null)"; then
+  VERSION="${VERSION_TAG#v}"
+else
+  VERSION=""
+fi
+
 BUILD_ARGS=(-c "$CONFIG")
 LABEL="${CONFIG}"
 if [ "$UNIVERSAL" -eq 1 ]; then
@@ -41,6 +54,14 @@ cp "${BIN_DIR}/${APP_NAME}" "${APP_BUNDLE}/Contents/MacOS/${APP_NAME}"
 cp "Resources/Info.plist" "${APP_BUNDLE}/Contents/Info.plist"
 if [ -f "Resources/Scribo.icns" ]; then
   cp "Resources/Scribo.icns" "${APP_BUNDLE}/Contents/Resources/Scribo.icns"
+fi
+
+if [ -n "${VERSION}" ]; then
+  echo "▶ Stamping version ${VERSION}…"
+  /usr/libexec/PlistBuddy -c "Set :CFBundleShortVersionString ${VERSION}" \
+    "${APP_BUNDLE}/Contents/Info.plist"
+  /usr/libexec/PlistBuddy -c "Set :CFBundleVersion ${VERSION}" \
+    "${APP_BUNDLE}/Contents/Info.plist"
 fi
 
 echo "▶ Ad-hoc code signing…"
