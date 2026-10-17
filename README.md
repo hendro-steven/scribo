@@ -80,8 +80,9 @@ git push origin v1.0.0
 ```
 
 The workflow can also be triggered manually from the **Actions** tab
-(*Run workflow*). No Apple Developer account or secrets are required — the build
-is ad-hoc signed on the runner.
+(*Run workflow*) as a build check — manual runs build and verify the universal
+`.app` but only **tag** pushes publish a Release. No Apple Developer account or
+secrets are required — the build is ad-hoc signed on the runner.
 
 ## Configuration
 
