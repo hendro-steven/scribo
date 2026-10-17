@@ -14,6 +14,9 @@ permissions:
 jobs:
   build-and-release:
     runs-on: macos-14   # Apple Silicon runner with Xcode preinstalled
+    # The `release` environment carries a required reviewer (the maintainer),
+    # so a release run pauses for manual approval before it builds/publishes.
+    environment: release
     steps:
       - name: Checkout
         uses: actions/checkout@v7
