@@ -109,8 +109,11 @@ final class StatusBarController: NSObject {
         NSWorkspace.shared.open(Preferences.shared.configURL)
     }
 
+    private static let repoURL = URL(string: "https://github.com/hendro-steven/scribo")!
+
     @objc private func about() {
         NSApp.activate(ignoringOtherApps: true)
+
         let alert = NSAlert()
         alert.messageText = "Scribo"
         alert.informativeText = """
@@ -121,9 +124,14 @@ final class StatusBarController: NSObject {
         F11 — undo   ·   ⇧F11 — redo
 
         Draw over anything, anywhere. Inspired by gromit-mpx.
+
+        \(Self.repoURL.absoluteString)
         """
         alert.addButton(withTitle: "OK")
-        alert.runModal()
+        alert.addButton(withTitle: "View on GitHub")
+        if alert.runModal() == .alertSecondButtonReturn {
+            NSWorkspace.shared.open(Self.repoURL)
+        }
     }
 
     @objc private func quit() { NSApp.terminate(nil) }
