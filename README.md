@@ -84,6 +84,18 @@ The workflow can also be triggered manually from the **Actions** tab
 `.app` but only **tag** pushes publish a Release. No Apple Developer account or
 secrets are required — the build is ad-hoc signed on the runner.
 
+## App icon
+
+The icon is generated from code (no binary design assets to hand-edit). Edit the
+drawing in [`tools/make-icon.swift`](tools/make-icon.swift), then regenerate the
+bundled `.icns`:
+
+```bash
+./tools/make-icon.sh    # renders the art and packs Resources/Scribo.icns
+```
+
+`make-app.sh` copies `Resources/Scribo.icns` into the app bundle automatically.
+
 ## Configuration
 
 On first launch Scribo writes a config file to:

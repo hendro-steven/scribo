@@ -10,6 +10,8 @@
     <string>com.hendrosteven.Scribo</string>
     <key>CFBundleExecutable</key>
     <string>Scribo</string>
+    <key>CFBundleIconFile</key>
+    <string>Scribo</string>
     <key>CFBundlePackageType</key>
     <string>APPL</string>
     <key>CFBundleShortVersionString</key>
