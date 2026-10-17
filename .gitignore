@@ -2,3 +2,7 @@
 .swiftpm/
 *.xcodeproj
 .DS_Store
+
+# Release artifacts
+*.zip
+*.dmg

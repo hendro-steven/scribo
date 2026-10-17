@@ -33,7 +33,26 @@ Tools, colors and widths are also switchable from the menu-bar icon (pencil).
 > *"Use F1, F2, etc. keys as standard function keys"* in
 > **System Settings → Keyboard**, or hold `fn`.
 
-## Build & run
+## Download & install
+
+Grab the latest **Scribo.zip** from the
+[Releases page](https://github.com/hendro-steven/scribo/releases).
+
+1. Unzip it and move **Scribo.app** to your **Applications** folder.
+2. **First launch only:** right-click **Scribo.app → Open**, then click **Open**
+   in the dialog.
+
+   > Scribo is *ad-hoc signed* (free distribution), not notarized by Apple, so
+   > macOS shows a one-time "unidentified developer" warning. Opening it this way
+   > once tells macOS to trust it; afterwards it launches normally.
+
+   Prefer the Terminal? Clear the quarantine flag instead:
+   ```bash
+   xattr -dr com.apple.quarantine /Applications/Scribo.app
+   ```
+3. Look for the **pencil icon** in your menu bar. Press **F9** and draw.
+
+## Build from source
 
 Requires Xcode command-line tools (Swift 5.9+).
 
@@ -42,11 +61,27 @@ Requires Xcode command-line tools (Swift 5.9+).
 swift run
 
 # Build a proper Scribo.app bundle:
-./make-app.sh
+./make-app.sh                 # host architecture
+./make-app.sh --universal     # Apple Silicon + Intel
+./make-app.sh --universal --zip   # also produce a distributable Scribo.zip
 open .build/Scribo.app
 ```
 
-The pencil icon appears in the menu bar. Press **F9** and draw.
+## Releasing (maintainers)
+
+Releases are automated by GitHub Actions
+([`.github/workflows/release.yml`](.github/workflows/release.yml)). Pushing a
+version tag builds a **universal** `.app`, zips it, and publishes it to GitHub
+Releases with install instructions and auto-generated changelog:
+
+```bash
+git tag v1.0.0
+git push origin v1.0.0
+```
+
+The workflow can also be triggered manually from the **Actions** tab
+(*Run workflow*). No Apple Developer account or secrets are required — the build
+is ad-hoc signed on the runner.
 
 ## Configuration
 
@@ -65,8 +100,9 @@ color, default pen width, and the quick-pick palette (hex colors).
   Scribo only *paints over* the screen, it doesn't read it.
 - **Global hot keys**: handled by the Carbon Hot Key API, which needs no
   Accessibility grant.
-- To **distribute** the app to others, sign & notarize it with an Apple
-  Developer ID (otherwise Gatekeeper warns on first open).
+- **Distribution**: the released build is ad-hoc signed, so users do the
+  one-time right-click-Open step above. To remove that step entirely you'd sign
+  & notarize with an Apple Developer ID ($99/yr).
 
 ## Architecture
 
