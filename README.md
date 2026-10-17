@@ -1,5 +1,7 @@
 # Scribo
 
+[![CI](https://github.com/hendro-steven/scribo/actions/workflows/ci.yml/badge.svg)](https://github.com/hendro-steven/scribo/actions/workflows/ci.yml)
+
 On-screen annotation overlay for macOS (native AppKit, Apple Silicon & Intel).
 A spiritual port of Linux's [gromit-mpx](https://github.com/bk138/gromit-mpx):
 draw on top of anything — presentations, demos, screen recordings, teaching.
