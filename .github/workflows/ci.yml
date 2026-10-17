@@ -1,0 +1,28 @@
+name: CI
+
+# Builds every pull request and every push to main. This is the status check
+# the branch ruleset requires before a PR can be merged.
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read   # CI needs no write access
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: macos-14
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Toolchain
+        run: swift --version
+
+      - name: Build & assemble app bundle
+        run: ./make-app.sh

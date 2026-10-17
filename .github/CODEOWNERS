@@ -1,0 +1,12 @@
+# Code owners are automatically requested for review on PRs that touch
+# matching paths, and (with the branch ruleset) their approval is REQUIRED
+# before a PR can merge.
+
+# Default owner for everything in the repo.
+*                 @hendro-steven
+
+# The release pipeline, CI, and governance files — called out explicitly so
+# changes to how the app is built and shipped always require the maintainer.
+/.github/         @hendro-steven
+/make-app.sh      @hendro-steven
+/tools/           @hendro-steven
