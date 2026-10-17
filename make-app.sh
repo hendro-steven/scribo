@@ -39,6 +39,9 @@ rm -rf "$APP_BUNDLE"
 mkdir -p "${APP_BUNDLE}/Contents/MacOS" "${APP_BUNDLE}/Contents/Resources"
 cp "${BIN_DIR}/${APP_NAME}" "${APP_BUNDLE}/Contents/MacOS/${APP_NAME}"
 cp "Resources/Info.plist" "${APP_BUNDLE}/Contents/Info.plist"
+if [ -f "Resources/Scribo.icns" ]; then
+  cp "Resources/Scribo.icns" "${APP_BUNDLE}/Contents/Resources/Scribo.icns"
+fi
 
 echo "▶ Ad-hoc code signing…"
 codesign --force --deep --sign - "${APP_BUNDLE}"
