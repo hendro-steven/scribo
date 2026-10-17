@@ -16,7 +16,7 @@ jobs:
     runs-on: macos-14   # Apple Silicon runner with Xcode preinstalled
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Show toolchain
         run: swift --version
@@ -29,7 +29,7 @@ jobs:
 
       - name: Publish to GitHub Releases
         if: startsWith(github.ref, 'refs/tags/')
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@v3
         with:
           files: Scribo.zip
           generate_release_notes: true
