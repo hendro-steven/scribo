@@ -1,0 +1,54 @@
+name: Release
+
+# Publishes a downloadable Scribo.zip to GitHub Releases whenever a version
+# tag (e.g. v1.0.0) is pushed. Also runnable manually from the Actions tab.
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+permissions:
+  contents: write   # required to create the GitHub Release
+
+jobs:
+  build-and-release:
+    runs-on: macos-14   # Apple Silicon runner with Xcode preinstalled
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Show toolchain
+        run: swift --version
+
+      - name: Build universal .app and zip
+        run: ./make-app.sh --universal --zip
+
+      - name: Verify architectures
+        run: lipo -info .build/Scribo.app/Contents/MacOS/Scribo
+
+      - name: Publish to GitHub Releases
+        uses: softprops/action-gh-release@v2
+        with:
+          files: Scribo.zip
+          generate_release_notes: true
+          body: |
+            ## Scribo — on-screen annotation overlay for macOS
+
+            Universal build (Apple Silicon + Intel).
+
+            ### Install
+            1. Download **Scribo.zip** below and unzip it.
+            2. Move **Scribo.app** to your **Applications** folder.
+            3. First launch only: **right-click Scribo.app → Open**, then click
+               **Open** in the dialog. (This app is ad-hoc signed, not notarized,
+               so macOS asks once. After that it launches normally.)
+
+               Alternatively, clear the quarantine flag from Terminal:
+               ```
+               xattr -dr com.apple.quarantine /Applications/Scribo.app
+               ```
+            4. Look for the **pencil icon** in your menu bar. Press **F9** to draw.
+
+            ### Hotkeys
+            `F9` toggle draw mode · `F10` clear · `F11` undo · `⇧F11` redo
