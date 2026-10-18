@@ -6,6 +6,9 @@ final class StatusBarController: NSObject {
     private let overlay: OverlayController
     private let statusItem: NSStatusItem
 
+    /// Set by AppDelegate; toggles the on-screen tool HUD.
+    var onToggleHUD: (() -> Void)?
+
     init(settings: AppSettings, overlay: OverlayController) {
         self.settings = settings
         self.overlay = overlay
@@ -21,6 +24,7 @@ final class StatusBarController: NSObject {
         let menu = NSMenu()
 
         menu.addItem(item("Draw Mode", #selector(toggleDraw), key: "", tag: 1000))
+        menu.addItem(item("Tool HUD  (F8)", #selector(toggleHUD)))
         menu.addItem(.separator())
 
         // Tools
@@ -87,6 +91,7 @@ final class StatusBarController: NSObject {
     // MARK: - Actions
 
     @objc private func toggleDraw() { overlay.toggleActive(); refresh() }
+    @objc private func toggleHUD()  { onToggleHUD?() }
     @objc private func clear()      { overlay.clearAll() }
     @objc private func undo()       { overlay.undo() }
     @objc private func redo()       { overlay.redo() }
@@ -125,6 +130,7 @@ final class StatusBarController: NSObject {
         F9 — toggle draw mode
         F10 — clear
         F11 — undo   ·   ⇧F11 — redo
+        F8 — show/hide the tool HUD
 
         Draw over anything, anywhere. Inspired by gromit-mpx.
 

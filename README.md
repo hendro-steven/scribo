@@ -16,6 +16,8 @@ draw on top of anything — presentations, demos, screen recordings, teaching.
 - **Click-through when idle**: toggle draw mode on/off instantly.
 - **Tools**: pen, highlighter, line, arrow, rectangle, ellipse, eraser.
 - **Colors & widths** picked from the menu-bar menu (configurable palette).
+- **On-screen tool HUD** — a summon-on-hotkey (`F8`) popup for quick tool / color /
+  width switching without leaving the canvas.
 - **Undo / redo / clear**.
 - **Multi-monitor** aware; rebuilds automatically when displays change.
 - **Global hot keys** via the Carbon Hot Key API — *no* Accessibility
@@ -24,14 +26,17 @@ draw on top of anything — presentations, demos, screen recordings, teaching.
 
 ## Hot keys
 
-| Key        | Action            |
-|------------|-------------------|
-| `F9`       | Toggle draw mode  |
-| `F10`      | Clear screen      |
-| `F11`      | Undo              |
-| `⇧ F11`    | Redo              |
+| Key        | Action                     |
+|------------|----------------------------|
+| `F9`       | Toggle draw mode           |
+| `F10`      | Clear screen               |
+| `F11`      | Undo                       |
+| `⇧ F11`    | Redo                       |
+| `F8`       | Show/hide the tool HUD     |
 
-Tools, colors and widths are also switchable from the menu-bar icon (pencil).
+Tools, colors and widths are switchable from the menu-bar icon (pencil) **or**
+the on-screen tool HUD — a summon-on-hotkey (`F8`) popup in the top-right corner
+that shows the current tool, color and width and lets you switch with one click.
 
 > Tip: if F9–F11 trigger macOS's default function-key behaviour, enable
 > *"Use F1, F2, etc. keys as standard function keys"* in
@@ -137,6 +142,7 @@ a thin executable target (`Scribo`) is just the entry point.
 | `ScriboCore/OverlayWindow.swift` | Borderless non-activating floating panel |
 | `ScriboCore/OverlayController.swift` | One window/canvas per screen; command fan-out |
 | `ScriboCore/HotKeyManager.swift` | Carbon global hot keys |
+| `ScriboCore/ToolHUD.swift` | Summon-on-hotkey tool/color/width HUD |
 | `ScriboCore/StatusBarController.swift` | Menu-bar icon + menu |
 | `ScriboCore/Preferences.swift` | JSON config load/save |
 
@@ -155,7 +161,6 @@ screen); CI runs `swift test` on every PR.
 ## Roadmap ideas
 
 - Customisable hot keys in the config file
-- On-screen tool HUD
 - Snapshot the annotated screen to an image
 - Text-insertion tool
 - Pressure / tilt support for pens
