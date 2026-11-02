@@ -28,11 +28,11 @@ draw on top of anything — presentations, demos, screen recordings, teaching.
 
 | Key        | Action                     |
 |------------|----------------------------|
-| `F9`       | Toggle draw mode           |
-| `F10`      | Clear screen               |
-| `F11`      | Undo                       |
-| `⇧ F11`    | Redo                       |
-| `F8`       | Show/hide the tool HUD     |
+| `fn`+`F9`       | Toggle draw mode           |
+| `fn`+`F10`      | Clear screen               |
+| `fn`+`F11`      | Undo                       |
+| `fn`+`⇧ F11`    | Redo                       |
+| `fn`+`F8`       | Show/hide the tool HUD     |
 
 Tools, colors and widths are switchable from the menu-bar icon (pencil) **or**
 the on-screen tool HUD — a summon-on-hotkey (`F8`) popup in the top-right corner
